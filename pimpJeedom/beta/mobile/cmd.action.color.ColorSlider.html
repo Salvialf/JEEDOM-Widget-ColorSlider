@@ -121,7 +121,8 @@
       jeedom.cmd.execute({id: '#id#', value: {color: color.hex8String}});
     });
     jeedom.cmd.update['#id#'] = function(_options){
-      colorPicker.color.hex8String = (_options.display_value.length == 11) ? _options.display_value.substring(0, _options.display_value.length - 2) : _options.display_value;
+      let count = _options.display_value.length - 9;
+      colorPicker.color.hex8String = (_options.display_value.length > 9) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value;
     }
     jeedom.cmd.update['#id#']({display_value:'#state#'});
   });
