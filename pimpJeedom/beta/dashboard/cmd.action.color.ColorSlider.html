@@ -12,7 +12,7 @@
   var size = is_numeric('#size#') ? '#size#' : 140;
   var handleRadius = is_numeric('#handle-size#') ? '#handle-size#' : 9;
   var margin = is_numeric('#margin#') ? '#margin#' : 10;
-  var padding = is_numeric('#padding#') ? '#padding#' : 2;
+  var handlePadding = is_numeric('#handle-padding#') ? '#handle-padding#' : 2;
   var borderSize = is_numeric('#border-size#') ? '#border-size#' : 0;
   var borderColor = ('#border-color#' != '#'+'border-color#') ? '#border-color#' : '#ffffff';
   var sliderSize = is_numeric('#slider-size#') ? '#slider-size#' : 20;
@@ -21,11 +21,11 @@
 
   $.include(['plugins/pimpJeedom/core/template/dashboard/cmd.action.color.ColorSlider/iro.min.js'], function() {
     var colorPicker = new iro.ColorPicker('#picker#id#', {
-  //    color:'#state#',
+      color:'#state#',
       width: parseFloat(size),
       display: 'inline-block',
       layoutDirection: disposition,
-      padding: parseFloat(padding),
+      padding: parseFloat(handlePadding),
       margin: parseFloat(margin),
       borderWidth: parseFloat(borderSize),
       borderColor: borderColor,
@@ -94,10 +94,7 @@
       jeedom.cmd.execute({id: '#id#', value: {color: color.hexString}});
     });
     jeedom.cmd.update['#id#'] = function(_options){
-      let count = _options.display_value.length - 7;
-      colorPicker.color.set((_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value);
-    //  let count = _options.display_value.length - 7;
-    //  colorPicker.color.hexString = (_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value;
+      colorPicker.color.set((_options.display_value != '') ? _options.display_value.substring(0,7) : '#000000');
     }
     jeedom.cmd.update['#id#']({display_value:'#state#'});
   });
