@@ -10,17 +10,18 @@
 //  var kelvin = ('#kelvin#' != '#'+'kelvin#') ? '#kelvin#' : 'off'; //off, slider, circle
   var disposition = ('#disposition#' != '#'+'disposition#') ? '#disposition#' : 'vertical';
   var size = is_numeric('#size#') ? '#size#' : 140;
-  var handleRadius = is_numeric('#handle-radius#') ? '#handle-radius#' : 9;
+  var handleRadius = is_numeric('#handle-size#') ? '#handle-size#' : 9;
   var margin = is_numeric('#margin#') ? '#margin#' : 10;
   var padding = is_numeric('#padding#') ? '#padding#' : 2;
   var borderSize = is_numeric('#border-size#') ? '#border-size#' : 0;
   var borderColor = ('#border-color#' != '#'+'border-color#') ? '#border-color#' : '#ffffff';
   var sliderSize = is_numeric('#slider-size#') ? '#slider-size#' : 20;
-  var wheelAngle = ('#wheel-angle#' != '#'+'wheel-angle#') ? "#wheel-angle#" : 0;
+  var wheelAngle = is_numeric('#wheel-angle#') ? "#wheel-angle#" : 0;
 //  (hue == 'wheel' || value == 'box') ? saturation = 'off' : '';
 
   $.include(['plugins/pimpJeedom/core/template/dashboard/cmd.action.color.ColorSlider/iro.min.js'], function() {
     var colorPicker = new iro.ColorPicker('#picker#id#', {
+    //  color:'#state#',
       width: parseFloat(size),
       display: 'inline-block',
       layoutDirection: disposition,
@@ -94,7 +95,9 @@
     });
     jeedom.cmd.update['#id#'] = function(_options){
       let count = _options.display_value.length - 7;
-      colorPicker.color.hexString = (_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value;
+      colorPicker.color.set((_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value);
+    //  let count = _options.display_value.length - 7;
+    //  colorPicker.color.hexString = (_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value;
     }
     jeedom.cmd.update['#id#']({display_value:'#state#'});
   });
