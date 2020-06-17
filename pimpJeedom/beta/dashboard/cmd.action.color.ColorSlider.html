@@ -21,7 +21,7 @@
 
   $.include(['plugins/pimpJeedom/core/template/dashboard/cmd.action.color.ColorSlider/iro.min.js'], function() {
     var colorPicker = new iro.ColorPicker('#picker#id#', {
-    //  color:'#state#',
+      color:'#state#',
       width: parseFloat(size),
       display: 'inline-block',
       layoutDirection: disposition,
@@ -93,7 +93,7 @@
     colorPicker.on('color:change', function(color) {
       jeedom.cmd.execute({id: '#id#', value: {color: color.hexString}});
     });
-    jeedom.cmd.update['#id#'] = function(_options){
+/*    jeedom.cmd.update['#id#'] = function(_options){
       let count = _options.display_value.length - 7;
       colorPicker.color.set((_options.display_value.length > 7) ? _options.display_value.substring(0, _options.display_value.length - count) : _options.display_value);
     //  let count = _options.display_value.length - 7;
